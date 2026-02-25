@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BruteShield - Security Training Platform</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">BruteShield</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#" onclick="showPage('landing')" class="nav-link" id="navHome">Home</a>
+                <a href="#" onclick="showPage('login')" class="nav-link" id="navLogin">Login</a>
+                <a href="#" onclick="showPage('register')" class="nav-link" id="navRegister">Register</a>
+                <a href="#" onclick="logout()" class="nav-link" id="navLogout" style="display: none;">Logout</a>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span class="user-name" id="userName"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Landing Page -->
+    <div id="landingPage" class="page active">
+        <div class="hero">
+            <div class="matrix-bg"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="glitch" data-text="BRUTEFORCE">BRUTEFORCE</span>
+                </h1>
+                <p class="hero-subtitle">Advanced Penetration Testing Training Platform</p>
+                <p class="hero-description">
+                    Master cybersecurity through realistic attack simulations. 
+                    Train like a hacker. Defend like a pro.
+                </p>
+                <div class="hero-buttons">
+                    <button onclick="showPage('register')" class="btn btn-primary">
+                        <span>Get Started</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+                    <button onclick="showPage('login')" class="btn btn-secondary">
+                        <span>Sign In</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔓</div>
+                    <h3>Brute Force Training</h3>
+                    <p>Learn password cracking techniques in a controlled environment</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Network Scanning</h3>
+                    <p>Master port scanning and vulnerability discovery</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💉</div>
+                    <h3>SQL Injection</h3>
+                    <p>Practice database exploitation techniques safely</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Attack Logging</h3>
+                    <p>Real-time monitoring and analysis of attack patterns</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="registerPage" class="page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Create Account</h2>
+                    <p>Join the security training platform</p>
+                </div>
+                <form id="registerForm" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="regName">Full Name</label>
+                        <input type="text" id="regName" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">Email Address</label>
+                        <input type="email" id="regEmail" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Password</label>
+                        <input type="password" id="regPassword" required placeholder="Min. 8 characters">
+                        <small>Use a strong password with letters, numbers, and symbols</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Create Account</span>
+                    </button>
+                    <div class="auth-message" id="registerMessage"></div>
+                </form>
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="#" onclick="showPage('login')">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to access your training dashboard</p>
+                </div>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Sign In</span>
+                    </button>
+                    <div class="auth-message" id="loginMessage"></div>
+                </form>
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="#" onclick="showPage('register')">Sign Up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <h1>Training Dashboard</h1>
+                <p>Select a simulation to begin your security training</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statCompleted">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statAvgScore">0%</div>
+                        <div class="stat-label">Avg Score</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statTime">0h</div>
+                        <div class="stat-label">Time Spent</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" onclick="showTab('simulations')">
+                    Available Simulations
+                </button>
+                <button class="tab-btn" onclick="showTab('results')">
+                    My Results
+                </button>
+                <button class="tab-btn" onclick="showTab('logs')">
+                    Attack Logs
+                </button>
+            </div>
+
+            <!-- Simulations Tab -->
+            <div id="simulationsTab" class="tab-content active">
+                <div class="simulations-grid" id="simulationsGrid">
+                    <!-- Simulations will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Results Tab -->
+            <div id="resultsTab" class="tab-content">
+                <div class="results-container">
+                    <table class="results-table" id="resultsTable">
+                        <thead>
+                            <tr>
+                                <th>Simulation</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Score</th>
+                                <th>Duration</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTableBody">
+                            <!-- Results will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Logs Tab -->
+            <div id="logsTab" class="tab-content">
+                <div class="logs-container">
+                    <div class="logs-header">
+                        <h3>Attack Attempt Logs</h3>
+                        <p>Monitor all authentication attempts and security events</p>
+                    </div>
+                    <table class="logs-table" id="logsTable">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Email</th>
+                                <th>IP Address</th>
+                                <th>Attack Type</th>
+                                <th>Status</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logsTableBody">
+                            <!-- Logs will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulation Modal -->
+    <div id="simulationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Simulation Details</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Simulation details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+                <button class="btn btn-primary" id="startSimBtn" onclick="startSimulation()">
+                    Start Simulation
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
